@@ -1,6 +1,7 @@
 import './App.css';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {loggedInRoutes, publicRoutes} from './Routers/index';
+import Drawer from './Components/index';
 
 const auth = true;
 
@@ -13,7 +14,7 @@ function App() {
               key={eachRoute.url}
               path={eachRoute.url}
               exact
-              render={props => <eachRoute.component props={props} />}
+              render={props => <Drawer eachRoute={eachRoute} routeProps={props} />}
             />
         ))}
       </Switch>

@@ -1,12 +1,13 @@
 import Test from '../Components/Screens/test';
+import Profile from '../Components/Screens/profile';
 
 export const loggedInRoutes = [
     {
-        url: '/test_in',
-        component: Test,
+        url: '/profile',
+        component: Profile,
     },
     {
-        url: '/profile',
+        url: '/profile2',
         component: Test,
     },
     {
@@ -17,8 +18,8 @@ export const loggedInRoutes = [
 
 export const publicRoutes = [
     {
-        url: '/',
-        component: Test,
+        url: '/profile',
+        component: Profile,
     },
     {
         url: '/login',
