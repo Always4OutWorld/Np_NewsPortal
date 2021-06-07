@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   makeStyles,
   useTheme
@@ -27,7 +27,8 @@ const scrollDesign = (props) => (
 const MainPage = ({ eachRoute, props }) => {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [isModal, setModal] = useState(false);
 
     return (
       <div className={classes.root}>
@@ -35,6 +36,7 @@ const MainPage = ({ eachRoute, props }) => {
           classes={classes}
           open={open}
           setOpen={setOpen}
+          setModal={setModal}
         />
         <DrawerDesign
           classes={classes}
@@ -45,7 +47,7 @@ const MainPage = ({ eachRoute, props }) => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container>
-          <eachRoute.component props={{ ...props, eachRoute }} />
+          <eachRoute.component {...props} actionData={{isModal}} />
         </Container>
       </main>
       {scrollDesign([props])}
