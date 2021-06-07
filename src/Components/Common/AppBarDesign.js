@@ -5,13 +5,15 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Grid
+  Grid,
+  Button
 } from '@material-ui/core';
 import {
     Menu as MenuIcon
 } from '@material-ui/icons';
 
-const MenuToolBar = ({ classes, setOpen, open }) => (
+const MenuToolBar = ({ classes, setOpen, open, setModal }) => {
+  return (
     <Toolbar>
       <IconButton
         color="inherit"
@@ -34,14 +36,14 @@ const MenuToolBar = ({ classes, setOpen, open }) => (
             </Typography>
           </Grid>
           <Grid item xs={2}>
-            2
+            <Button fullWidth size="large" color="secondary" variant="contained" onClick={() => setModal(true)}>Login</Button>
           </Grid>
       </Grid>
     </Toolbar>
-  );
+  )};
 
 
-const AppBarDesign = ({classes, open, setOpen}) => {
+const AppBarDesign = ({classes, open, setOpen, setModal }) => {
     return (
       <AppBar
           position="fixed"
@@ -49,7 +51,7 @@ const AppBarDesign = ({classes, open, setOpen}) => {
             [classes.appBarShift]: open,
           })}
         >
-          {MenuToolBar({classes, open, setOpen})}
+          {MenuToolBar({classes, open, setOpen, setModal})}
         </AppBar>
     );
 }
