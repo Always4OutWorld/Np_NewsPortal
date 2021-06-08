@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { REQUIRED_ERROR, INVALID_EMAIL } from '../../Constants/constant';
+import { REQUIRED_ERROR, INVALID_EMAIL } from '../../constants/constant';
 
 const NewsFeedHandler = () => {
     const loginformik = useFormik({

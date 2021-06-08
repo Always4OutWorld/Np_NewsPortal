@@ -1,5 +1,5 @@
-import Test from '../Components/Screens/test';
-import NewsFeed from '../Components/Screens/newsfeed.view';
+import Test from '../components/Screens/test';
+import NewsFeed from '../components/Screens/newsfeed.view';
 
 export const loggedInRoutes = [
     {

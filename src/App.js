@@ -1,7 +1,7 @@
 import './Styles/App.css';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {loggedInRoutes, publicRoutes} from './Routers/index';
-import Drawer from './Components/index';
+import {loggedInRoutes, publicRoutes} from './routers/index';
+import Drawer from './components/index';
 
 const auth = true;
 

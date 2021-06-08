@@ -13,7 +13,7 @@ import {
 import ScrollTop from './Common/scrollTop';
 import AppBarDesign from './Common/appBarDesign';
 import DrawerDesign from './Common/drawerDesign';
-import {drawerWidth} from '../Constants/constant';
+import {drawerWidth} from '../constants/constant';
 
 
 const scrollDesign = (props) => (
