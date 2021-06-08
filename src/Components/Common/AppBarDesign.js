@@ -62,6 +62,9 @@ const AppBarDesign = ({classes, open, setOpen, setModal }) => {
     return (
       <AppBar
           position="fixed"
+          style={{
+            paddingTop: "10px"
+          }}
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
