@@ -29,3 +29,24 @@
   color: white !important;
   font-weight: 800 !important;
 }
+
+.paperstyle {
+  min-height: 50vh !important;
+  margin-top: 20vh;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.avatarColor {
+  background: green !important;
+  width: 80px !important;
+  height: 80px !important;
+}
+
+.astyle {
+  color: blue;
+  font-size: 10px;
+}

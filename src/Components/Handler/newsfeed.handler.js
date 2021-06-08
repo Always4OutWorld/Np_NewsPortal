@@ -48,11 +48,12 @@ const NewsFeedHandler = ({
                 .required(REQUIRED_ERROR)
         }),
         onSubmit: (values) => {
+            const isExisting = find(get(stateUsers, 'users.data'), e => e.email===get(values, 'email'));
             const currentUser = {
                 email: get(values, 'email'),
-                password: get(values, 'password')
+                password: get(values, 'password'),
+                name: get(isExisting, 'name'),
             };
-            const isExisting = find(get(stateUsers, 'users.data'), e => e.email===get(values, 'email'));
             if (isExisting) {
                 const isSamePassword = isExisting.password === get(values, 'password');
                 if (isSamePassword) {

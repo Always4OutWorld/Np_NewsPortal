@@ -13,7 +13,8 @@ export const TextInputField = ({
     onChange=()=>{},
     error="",
     fullWidth=true,
-    type="text"
+    type="text",
+    disabled=false,
 }) => {
     return (
         <TextField
@@ -22,6 +23,7 @@ export const TextInputField = ({
             label={label}
             variant={variant}
             value={value}
+            disabled={disabled}
             name={name}
             placeHolder={placeHolder}
             onChange={onChange}

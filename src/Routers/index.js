@@ -1,5 +1,6 @@
 import Test from '../components/Screens/test';
 import NewsFeed from '../components/Handler/newsfeed.handler';
+import ProfileHandler from '../components/Handler/profileedit.handler';
 
 export const loggedInRoutes = [
     {
@@ -7,8 +8,8 @@ export const loggedInRoutes = [
         component: NewsFeed,
     },
     {
-        url: '/profile2',
-        component: Test,
+        url: '/profileView',
+        component: ProfileHandler,
     },
     {
         url: '/readlater',
