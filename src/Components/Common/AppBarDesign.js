@@ -31,9 +31,7 @@ const MenuToolBar = ({ classes, setOpen, open, setModal }) => {
         <MenuIcon />
       </IconButton>
       <Grid container>
-          <Grid item xs={2}>
-            1
-          </Grid>
+          <Grid item xs={2}/>
           <Grid item xs={8}>
             <Typography variant="h4" className="headStyle w3-center" noWrap>
                 Sunrise Edition
