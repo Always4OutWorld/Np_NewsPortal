@@ -31,7 +31,7 @@ const dispatchFinalData = (
     });
 };
 
-const getAllData = () => async dispatch => {
+const getAllData = reqData => async dispatch => {
     dispatchFinalData(FETCH_TEST, 'cities', dispatch);
     try {
         // const data = await axiosRequest('url', { limit: 1000 });
@@ -42,6 +42,7 @@ const getAllData = () => async dispatch => {
         // }
         dispatchFinalData(FETCH_TEST, 'cities', dispatch, false, {
             name: 'new',
+            ...reqData
         });
         return {
             name: 'new',

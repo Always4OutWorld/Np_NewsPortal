@@ -1,31 +1,24 @@
 import { Button, Grid } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { get } from 'lodash';
 import CommonDialog from '../Common/commonDialog';
 import { TextInputField } from '../Utils/index';
 import NewsFeedHandler from '../Handler/newsfeed.handler';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllData } from '../../redux/action';
 
 const NewsFeed = ({
   actionData
 }) => {
-  const dispatch = useDispatch();
-  const state = useSelector(state => state);
   const { isModal, setModal } = actionData;
   const { loginformik, registerformik } = NewsFeedHandler();
   const [isReg, setReg] = useState(false);
 
-  console.log("state", state);
-  useEffect(() => {
-    dispatch(getAllData())
-  }, []);
   const {
     values,
     setFieldValue,
     setFieldTouched,
     errors,
-    touched
+    touched,
+    handleSubmit
   } = loginformik;
 
   const {
@@ -135,7 +128,7 @@ const NewsFeed = ({
           action={isReg ? (
             <Button className="buttonR" fullWidth color="primary" variant="text">Create</Button>
           ) : (
-            <Button className="buttonR" fullWidth color="primary" variant="text">Submit</Button>
+            <Button className="buttonR" onClick={handleSubmit} fullWidth color="primary" variant="text">Submit</Button>
           )}
           mainStyle=""
           titleStyleC="w3-center w3-border w3-teal w3-section"

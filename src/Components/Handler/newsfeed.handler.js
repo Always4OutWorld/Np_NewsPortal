@@ -1,8 +1,16 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { REQUIRED_ERROR, INVALID_EMAIL } from '../../constants/constant';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllData } from '../../redux/action';
+
 
 const NewsFeedHandler = () => {
+    const dispatch = useDispatch();
+    const state = useSelector(state => state);
+
+    console.log("state", state);
+
     const loginformik = useFormik({
         enableReinitialize: true,
         validateOnChange: false,
@@ -17,10 +25,13 @@ const NewsFeedHandler = () => {
             password: Yup.string()
                 .min(6, 'minimum 6 Characters needed')
                 .max(20, 'maximum 20 character only')
-                .matches(`/[^A-Za-z 0-9]/g`, 'No Special Character allowed')
+                // .matches(`/[^A-Za-z 0-9]/g`, 'No Special Character allowed')
                 .required(REQUIRED_ERROR)
         }),
-        onSubmit: (values, { setSubmitting }) => {},
+        onSubmit: (values, { setSubmitting }) => {
+            console.log("datydatadsad", values)
+            dispatch(getAllData(values));
+        },
       })
 
       const registerformik = useFormik({
