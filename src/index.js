@@ -9,9 +9,6 @@ import {Provider} from 'react-redux';
 import mainStore from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
-console.log("ppp", mainStore)
-
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={mainStore.store}>
