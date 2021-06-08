@@ -6,13 +6,17 @@ import {
   IconButton,
   Typography,
   Grid,
-  Button
+  Button,
+  Avatar
 } from '@material-ui/core';
 import {
     Menu as MenuIcon
 } from '@material-ui/icons';
+import { useSelector } from 'react-redux';
+import { get } from 'lodash';
 
 const MenuToolBar = ({ classes, setOpen, open, setModal }) => {
+  const currentUser = useSelector(state => get(state, 'currentUser.data'))
   return (
     <Toolbar>
       <IconButton
@@ -36,7 +40,20 @@ const MenuToolBar = ({ classes, setOpen, open, setModal }) => {
             </Typography>
           </Grid>
           <Grid item xs={2}>
-            <Button fullWidth size="large" color="secondary" variant="contained" onClick={() => setModal(true)}>Login</Button>
+            {currentUser ? (
+              <a href="/profileView">
+              <Grid container>
+                <Grid item xs={12}>
+                <Avatar className="w3-right" variant="square" style={{ backgroundColor: "red"}}>{get(currentUser, 'email').charAt(0)}</Avatar>
+                </Grid>
+                <Grid item xs={12}>
+                <Typography className="w3-right" variant="body2">{get(currentUser, 'email').split('@')[0]}</Typography>
+                </Grid>
+              </Grid>
+              </a>
+            ) : (
+              <Button fullWidth size="large" color="secondary" variant="contained" onClick={() => setModal(true)}>Login</Button>
+            )}
           </Grid>
       </Grid>
     </Toolbar>
