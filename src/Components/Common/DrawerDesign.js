@@ -12,11 +12,18 @@ import {
 import {
   ChevronLeft,
   ChevronRight,
-  MoveToInbox,
 } from '@material-ui/icons';
+import { get } from 'lodash';
+import moment from 'moment';
 
 
-const DrawerDesign = ({classes, open, setOpen, theme}) => (
+const DrawerDesign = ({
+  classes,
+  open,
+  setOpen,
+  theme,
+  sectionData
+}) => (
     <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -32,21 +39,17 @@ const DrawerDesign = ({classes, open, setOpen, theme}) => (
     >
     <div className={classes.toolbar}>
       <IconButton onClick={() => setOpen(false)}>
-        {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
+        {moment().format('DD MMM YY')}
+        {theme.direction === 'rtl' ? <ChevronRight className="w3-margin-left" /> : <ChevronLeft className="w3-margin-left" />}
       </IconButton>
     </div>
     <Divider />
-    <List>
-        <ListItem button key={1}>
-          <ListItemText primary="22 Tue" />
-        </ListItem>
-    </List>
     <Divider />
     <List>
-      {['All New', 'National', 'Global'].map((text, index) => (
-        <ListItem button key={text}>
-          <ListItemIcon><MoveToInbox /></ListItemIcon>
-          <ListItemText primary={text} />
+      {sectionData.map((each, id) => (
+        <ListItem button key={id} onClick={each.onClick(each)}>
+          <ListItemIcon>{each.icons}</ListItemIcon>
+          <ListItemText primary={get(each, 'label')} />
         </ListItem>
       ))}
     </List>

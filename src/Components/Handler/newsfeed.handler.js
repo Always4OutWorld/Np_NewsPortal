@@ -17,8 +17,6 @@ const NewsFeedHandler = ({
     const [isReg, setReg] = useState(false);
     const [errorTest, setError] = useState('');
 
-    console.log("new user", stateUsers);
-
     useEffect(() => {
             setModal(newModal)
     }, [newModal]);

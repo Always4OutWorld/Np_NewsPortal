@@ -9,11 +9,20 @@ import {
 } from '@material-ui/core';
 import {
   Error as KeyboardArrowUpIcon,
+  AccountBalance,
+  AccountBalanceWallet,
+  AcUnit,
 } from '@material-ui/icons';
 import ScrollTop from './Common/scrollTop';
 import AppBarDesign from './Common/appBarDesign';
 import DrawerDesign from './Common/drawerDesign';
 import {drawerWidth} from '../constants/constant';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllSections } from '../redux/action';
+import { get, sample } from 'lodash';
+
+const iconArray = [<AccountBalance/>, <AccountBalanceWallet />, <AcUnit />]
 
 
 const scrollDesign = (props) => (
@@ -25,10 +34,27 @@ const scrollDesign = (props) => (
 );
 
 const MainPage = ({ eachRoute, props }) => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const [isModal, setModal] = useState(false);
+
+    useEffect(() => {
+      if (!get(state, 'allSections.data')) {
+        dispatch(getAllSections());
+      }
+    }, []);
+
+    const sectionMenu = get(state, 'allSections.data.data.results', []).map(each => {
+      return {
+        label: get(each, 'display_name'),
+        name: get(each, 'section').replace(' ', '_'),
+        onClick: () => {},
+        icons: sample(iconArray)
+      };
+    });
 
     return (
       <div className={classes.root}>
@@ -43,6 +69,7 @@ const MainPage = ({ eachRoute, props }) => {
           setOpen={setOpen}
           open={open}
           theme={theme}
+          sectionData={sectionMenu}
         />
       <main className={classes.content}>
         <div className={classes.toolbar} />

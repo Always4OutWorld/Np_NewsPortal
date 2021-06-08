@@ -1,36 +1,25 @@
-import axios from 'axios';
 import {
     FETCH_USERS,
-    LOGIN_USERS
+    LOGIN_USERS,
+    FETCH_ALL_SECTION_DATA
 } from '../constants/storeConstant';
+import {
+    axiosRequest,
+    dispatchFinalData
+} from '../components/Utils/index';
 
-const axiosRequest = async (url = '', params = {}) => {
-    const options = {
-        method: 'get',
-        url: `${process.env.REACT_APP_HITURL}${url}`,
-        params: params
-      };
-    const data = await axios(options);
-    return data;
+const getAllSections = (reqData, params) => async dispatch => {
+    dispatchFinalData(FETCH_ALL_SECTION_DATA, 'sectionData', dispatch);
+    try {
+        const data = await axiosRequest('/section-list.json', {});
+        dispatchFinalData(FETCH_ALL_SECTION_DATA, 'sectionData', dispatch, false, data);
+        return reqData
+    } catch (er) {
+        dispatchFinalData(FETCH_ALL_SECTION_DATA, 'sectionData', dispatch, false, null, er);
+        return er;
+    }
 }
 
-const dispatchFinalData = (
-    type,
-    key,
-    dispatch,
-    inProgress = true,
-    data = null,
-    error = null
-  ) => {
-    dispatch({
-        type,
-        key,
-        value: {
-          inProgress,
-          data,
-        },
-      });
-};
 const registerUser = (reqData) => async dispatch => {
     dispatchFinalData(FETCH_USERS, 'cities', dispatch);
     try {
@@ -41,6 +30,7 @@ const registerUser = (reqData) => async dispatch => {
         return er;
     }
 }
+
 const loginUser = (reqData) => async dispatch => {
     dispatchFinalData(LOGIN_USERS, 'cities', dispatch);
     try {
@@ -54,5 +44,6 @@ const loginUser = (reqData) => async dispatch => {
 
 export {
     registerUser,
-    loginUser
+    loginUser,
+    getAllSections
 }
