@@ -7,3 +7,25 @@
   font-weight: 900 !important;
   font-size: 24px !important;
 }
+
+.createaccount {
+  text-transform: lowercase !important;
+  color: blue !important;
+}
+
+.closebutton {
+  position: absolute !important;
+  right: 0px;
+  top: 0px;
+  background: teal !important;
+}
+
+.buttonColor {
+  color: aliceblue !important;
+}
+
+.buttonR {
+  font-size: 18px !important;
+  color: white !important;
+  font-weight: 800 !important;
+}

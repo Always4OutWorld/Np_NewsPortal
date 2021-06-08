@@ -10,9 +10,9 @@ import {
 import {
   Error as KeyboardArrowUpIcon,
 } from '@material-ui/icons';
-import ScrollTop from './Common/ScrollTop';
-import AppBarDesign from './Common/AppBarDesign';
-import DrawerDesign from './Common/DrawerDesign';
+import ScrollTop from './Common/scrollTop';
+import AppBarDesign from './Common/appBarDesign';
+import DrawerDesign from './Common/drawerDesign';
 import {drawerWidth} from '../Constants/constant';
 
 
@@ -47,7 +47,7 @@ const MainPage = ({ eachRoute, props }) => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container>
-          <eachRoute.component {...props} actionData={{isModal}} />
+          <eachRoute.component {...props} actionData={{isModal, setModal}} />
         </Container>
       </main>
       {scrollDesign([props])}
