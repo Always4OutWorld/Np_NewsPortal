@@ -1,23 +1,42 @@
+import React, {useEffect, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { get, find } from 'lodash';
 import { REQUIRED_ERROR, INVALID_EMAIL } from '../../constants/constant';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllData } from '../../redux/action';
+import { registerUser, loginUser } from '../../redux/action';
+import NewsFeed from '../Screens/newsfeed.view'; 
 
-
-const NewsFeedHandler = () => {
+const NewsFeedHandler = ({
+    actionData
+}) => {
     const dispatch = useDispatch();
-    const state = useSelector(state => state);
+    const stateUsers = useSelector(state => state);
+    const { isModal, setModal } = actionData;
+    const [newModal, setNewModal] = useState(false);
+    const [isReg, setReg] = useState(false);
+    const [errorTest, setError] = useState('');
 
-    console.log("state", state);
+    console.log("new user", stateUsers);
 
+    useEffect(() => {
+            setModal(newModal)
+    }, [newModal]);
+
+    useEffect(() => {
+        if (isModal) {
+            setNewModal(true);
+        }
+    }, [isModal]);
+
+    const loginIntailvalue = {
+        email: '',
+        password: '',
+    };
     const loginformik = useFormik({
         enableReinitialize: true,
         validateOnChange: false,
-        initialValues: {
-            email: '',
-            password: '',
-        },
+        initialValues: loginIntailvalue,
         validationSchema: Yup.object().shape({
             email: Yup.string()
                 .email(INVALID_EMAIL)
@@ -25,12 +44,26 @@ const NewsFeedHandler = () => {
             password: Yup.string()
                 .min(6, 'minimum 6 Characters needed')
                 .max(20, 'maximum 20 character only')
-                // .matches(`/[^A-Za-z 0-9]/g`, 'No Special Character allowed')
+                .matches(/^[aA-zZ\s]+$/, 'No Special Character allowedonly characters')
                 .required(REQUIRED_ERROR)
         }),
-        onSubmit: (values, { setSubmitting }) => {
-            console.log("datydatadsad", values)
-            dispatch(getAllData(values));
+        onSubmit: (values) => {
+            const currentUser = {
+                email: get(values, 'email'),
+                password: get(values, 'password')
+            };
+            const isExisting = find(get(stateUsers, 'users.data'), e => e.email===get(values, 'email'));
+            if (isExisting) {
+                const isSamePassword = isExisting.password === get(values, 'password');
+                if (isSamePassword) {
+                    dispatch(loginUser(currentUser));
+                    setNewModal(false);
+                } else {
+                    setError('Password dismatch');
+                }
+            } else {
+                setError('No User found');
+            }
         },
       })
 
@@ -44,7 +77,7 @@ const NewsFeedHandler = () => {
         },
         validationSchema: Yup.object().shape({
             name: Yup.string()
-                .matches(`/[^A-Za-z 0-9]/g`, 'No Special Character allowed')
+                .matches(/^[aA-zZ\s]+$/, 'No Special Character allowed,only characters')
                 .required(REQUIRED_ERROR),
             email: Yup.string()
                 .email(INVALID_EMAIL)
@@ -52,30 +85,74 @@ const NewsFeedHandler = () => {
             password: Yup.string()
                 .min(6, 'minimum 6 Characters needed')
                 .max(20, 'maximum 20 character only')
-                .matches(`/[^A-Za-z 0-9]/g`, 'No Special Character allowed')
+                .matches(/^[aA-zZ\s]+$/, 'No Special Character allowed, only characters')
                 .required(REQUIRED_ERROR)
         }),
-        onSubmit: (values, { setSubmitting }) => {},
-      })
+        onSubmit: (values) => {
+            let newUser = [];
+            if (get(stateUsers, 'users.data.length')) {
+                newUser = get(stateUsers, 'users.data');
+            }
+            const isExisting = find(get(stateUsers, 'users.data'), e => e.email===get(values, 'email'));
+
+            if (isExisting) {
+                setError('Existing User Email');
+                return;
+            }
+            const currentUser = {
+                name: get(values, 'name'),
+                email: get(values, 'email'),
+                password: get(values, 'password')
+            };
+            if (values) {
+                newUser.push(currentUser);
+            }
+            dispatch(registerUser(newUser));
+            dispatch(loginUser(currentUser));
+            setNewModal(false);
+        },
+    });
 
     const {
         values,
         setFieldValue,
         setFieldTouched,
         errors,
-        touched
-    } = registerformik;
+        touched,
+        handleSubmit,
+    } = loginformik;
 
-  return {
-    loginformik,
-    registerformik: {
-        registerValue: values,
-        setRegister: setFieldValue,
-        setRegisterBlur: setFieldTouched,
-        registerError: errors,
-        registerTouch: touched,
-    }
-  }
+    useEffect(() => {
+        setError('');
+    }, [values, registerformik.values, isReg]);
+
+  return (
+      <NewsFeed
+        errorTest={errorTest}
+        isModal={newModal}
+        isReg={isReg}
+        setModal={setNewModal}
+        setReg={setReg}
+        registerValue={get(registerformik, 'values')}
+        handleRegisterChange={(e) => {
+            const { name, value } = e.target;
+            registerformik.setFieldValue([name], value);
+        }}
+        setRegisterBlur={get(registerformik, 'setFieldTouched')}
+        registerTouch={get(registerformik, 'touched')}
+        registerError={get(registerformik, 'errors')}
+        values={values}
+        handleChange={(e) => {
+            const { name, value } = e.target;
+            setFieldValue([name], value);
+        }}
+        setFieldTouched={setFieldTouched}
+        touched={touched}
+        errors={errors}
+        handleRegister={get(registerformik, 'handleSubmit')}
+        handleSubmit={handleSubmit}
+      />
+  )
 }
 
 export default NewsFeedHandler;

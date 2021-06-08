@@ -4,6 +4,15 @@ import thunk from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage';
 
+// const dataStructure: {
+//     users: [{}]
+//     currentUser: {
+
+//     },
+//     data: {},
+//     readLater: {}
+// }
+
 const persistConfig = {
     key: 'root',
     storage,

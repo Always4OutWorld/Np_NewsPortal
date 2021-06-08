@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
-    FETCH_TEST,
+    FETCH_USERS,
+    LOGIN_USERS
 } from '../constants/storeConstant';
 
 const axiosRequest = async (url = '', params = {}) => {
@@ -22,37 +23,36 @@ const dispatchFinalData = (
     error = null
   ) => {
     dispatch({
-      type,
-      key,
-      value: {
-        inProgress,
-        data,
-      },
-    });
+        type,
+        key,
+        value: {
+          inProgress,
+          data,
+        },
+      });
 };
-
-const getAllData = reqData => async dispatch => {
-    dispatchFinalData(FETCH_TEST, 'cities', dispatch);
+const registerUser = (reqData) => async dispatch => {
+    dispatchFinalData(FETCH_USERS, 'cities', dispatch);
     try {
-        // const data = await axiosRequest('url', { limit: 1000 });
-        // if (data.status === 200) {
-        //     dispatchFinalData(FETCH_TEST, 'cities', dispatch, false, get(data, 'data.results'));
-        // } else {
-        //     dispatchFinalData(FETCH_TEST, 'cities', dispatch, false, data);
-        // }
-        dispatchFinalData(FETCH_TEST, 'cities', dispatch, false, {
-            name: 'new',
-            ...reqData
-        });
-        return {
-            name: 'new',
-        };
+        dispatchFinalData(FETCH_USERS, 'cities', dispatch, false, reqData);
+        return reqData
     } catch (er) {
-        dispatchFinalData(FETCH_TEST, 'cities', dispatch, false, null, er);
+        dispatchFinalData(FETCH_USERS, 'cities', dispatch, false, null, er);
+        return er;
+    }
+}
+const loginUser = (reqData) => async dispatch => {
+    dispatchFinalData(LOGIN_USERS, 'cities', dispatch);
+    try {
+        dispatchFinalData(LOGIN_USERS, 'cities', dispatch, false, reqData);
+        return reqData
+    } catch (er) {
+        dispatchFinalData(LOGIN_USERS, 'cities', dispatch, false, null, er);
         return er;
     }
 }
 
 export {
-    getAllData,
+    registerUser,
+    loginUser
 }
