@@ -6,15 +6,20 @@ import App from './App';
 import 'w3-css/w3.css';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
-import store from './redux/store';
+import mainStore from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+
+console.log("ppp", mainStore)
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+    <Provider store={mainStore.store}>
+      <PersistGate loading={null} persistor={mainStore.persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

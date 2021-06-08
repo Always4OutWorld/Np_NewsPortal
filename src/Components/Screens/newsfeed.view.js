@@ -1,16 +1,25 @@
-import { Button, Grid, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
+import { Button, Grid } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { get } from 'lodash';
 import CommonDialog from '../Common/commonDialog';
 import { TextInputField } from '../Utils/index';
 import NewsFeedHandler from '../Handler/newsfeed.handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllData } from '../../redux/action';
 
 const NewsFeed = ({
   actionData
 }) => {
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
   const { isModal, setModal } = actionData;
   const { loginformik, registerformik } = NewsFeedHandler();
   const [isReg, setReg] = useState(false);
+
+  console.log("state", state);
+  useEffect(() => {
+    dispatch(getAllData())
+  }, []);
   const {
     values,
     setFieldValue,
