@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ProfileView from '../Screens/profileedit.view';
-import { REQUIRED_ERROR, INVALID_EMAIL } from '../../constants/constant';
+import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../constants/constant';
 import { findIndex, get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -20,8 +20,6 @@ const ProfileHandler = () => {
     email: get(userDatas, 'currentUser.data.email')
   };
 
-  console.log("userDatas", userDatas)
-
   const editFormik = useFormik({
     enableReinitialize: true,
     initialValues: intialEditdata,
@@ -30,7 +28,7 @@ const ProfileHandler = () => {
             .email(INVALID_EMAIL)
             .required(REQUIRED_ERROR),
         name: Yup.string()
-            .matches(/^[aA-zZ\s]+$/, 'No Special Character allowed,only characters')
+            .matches(REGREX, SPECIAL_CHAR_ERROR)
             .required(REQUIRED_ERROR),
     }),
     onSubmit: (values) => {
@@ -57,10 +55,10 @@ const ProfileHandler = () => {
     },
     validationSchema: Yup.lazy(values => Yup.object().shape({
           password: Yup.string()
-            .matches(/^[aA-zZ\s]+$/, 'No Special Character allowed,only characters')
+            .matches(REGREX, SPECIAL_CHAR_ERROR)
             .required(REQUIRED_ERROR),
           confirmPassword: Yup.string()
-            .matches(/^[aA-zZ\s]+$/, 'No Special Character allowed,only characters')
+            .matches(REGREX, SPECIAL_CHAR_ERROR)
             .required(REQUIRED_ERROR)
             .test('password', 'password Not Matching', value => {
               if (value === get(values, 'password')) {
@@ -158,7 +156,7 @@ const ProfileHandler = () => {
       <ProfileView
         editField={editField}
         OnEdit={() => setEdit(!isEdit)}
-        firstLetter="P"
+        firstLetter={get(intialEditdata, 'name').charAt(0)}
         isEdit={isEdit}
         onForgot={() => setForgotPassword(!isForgot)}
         forgotPassword={forgotPassword}

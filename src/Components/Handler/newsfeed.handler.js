@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { get, find } from 'lodash';
-import { REQUIRED_ERROR, INVALID_EMAIL } from '../../constants/constant';
+import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../constants/constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser, loginUser } from '../../redux/action';
 import NewsFeed from '../Screens/newsfeed.view'; 
@@ -44,7 +44,7 @@ const NewsFeedHandler = ({
             password: Yup.string()
                 .min(6, 'minimum 6 Characters needed')
                 .max(20, 'maximum 20 character only')
-                .matches(/^[aA-zZ\s]+$/, 'No Special Character allowedonly characters')
+                .matches(REGREX, SPECIAL_CHAR_ERROR)
                 .required(REQUIRED_ERROR)
         }),
         onSubmit: (values) => {
@@ -78,7 +78,7 @@ const NewsFeedHandler = ({
         },
         validationSchema: Yup.object().shape({
             name: Yup.string()
-                .matches(/^[aA-zZ\s]+$/, 'No Special Character allowed,only characters')
+                .matches(REGREX, SPECIAL_CHAR_ERROR)
                 .required(REQUIRED_ERROR),
             email: Yup.string()
                 .email(INVALID_EMAIL)
@@ -86,7 +86,7 @@ const NewsFeedHandler = ({
             password: Yup.string()
                 .min(6, 'minimum 6 Characters needed')
                 .max(20, 'maximum 20 character only')
-                .matches(/^[aA-zZ\s]+$/, 'No Special Character allowed, only characters')
+                .matches(REGREX, SPECIAL_CHAR_ERROR)
                 .required(REQUIRED_ERROR)
         }),
         onSubmit: (values) => {
