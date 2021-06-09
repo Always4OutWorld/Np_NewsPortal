@@ -22,7 +22,8 @@ const DrawerDesign = ({
   open,
   setOpen,
   theme,
-  sectionData
+  sectionData,
+  section
 }) => (
     <Drawer
         variant="permanent"
@@ -47,7 +48,7 @@ const DrawerDesign = ({
     <Divider />
     <List>
       {sectionData.map((each, id) => (
-        <ListItem button key={id} autoFocus onClick={() => each.onClick(each)}>
+        <ListItem className={each.section === section ? "selectSection" : "unSelectSection"} button key={id} onClick={() => each.onClick(each)}>
           <ListItemIcon>{each.icons}</ListItemIcon>
           <ListItemText primary={get(each, 'label')} />
         </ListItem>

@@ -79,6 +79,7 @@ const MainPage = ({ eachRoute, props }) => {
           setOpen={setOpen}
           open={open}
           theme={theme}
+          section={section}
           sectionData={sectionMenu}
         />
       <main className={classes.content}>

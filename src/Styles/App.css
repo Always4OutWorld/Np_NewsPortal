@@ -61,3 +61,7 @@
     height: auto;
     overflow: hidden;
 }
+
+.selectSection {
+  background: cornflowerblue !important;
+}
