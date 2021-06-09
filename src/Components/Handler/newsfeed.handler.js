@@ -182,6 +182,7 @@ const NewsFeedHandler = ({
         article={get(stateUsers, 'allArticle.data.data.results', [])}
       />
       <ArticleView
+        isAuth={get(stateUsers, 'currentUser.data')}
         article={get(stateUsers, 'allArticle.data.data.results', [])}
         readLater={handleReadLater}
         readLaterList={get(stateUsers, 'readLaterData.data')}

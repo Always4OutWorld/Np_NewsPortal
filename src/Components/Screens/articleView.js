@@ -8,7 +8,8 @@ const ArticleView = ({
     readLater=()=>{},
     readLaterList=[],
     onClickRemove=()=>{},
-    readView = false
+    readView = false,
+    isAuth=false
 }) => (
     <Grid container spacing={2}>
         {article.map(each => {
@@ -46,29 +47,31 @@ const ArticleView = ({
                                     <Button fullWidth variant="outlined"><Forward />Goto Post</Button>
                                 </a>
                                 </Grid>
-                                <Grid item xs={12}>
-                                {readView ? (
-                                     <Button
-                                        fullWidth
-                                        color="primary"
-                                        variant="contained"
-                                        onClick={()  => onClickRemove(each)}
-                                        startIcon={<Delete />}
+                                {isAuth && (
+                                    <Grid item xs={12}>
+                                    {readView ? (
+                                         <Button
+                                            fullWidth
+                                            color="primary"
+                                            variant="contained"
+                                            onClick={()  => onClickRemove(each)}
+                                            startIcon={<Delete />}
+                                            >
+                                             Remove
+                                         </Button>
+                                    ) : (
+                                        <Button
+                                            fullWidth
+                                            color="primary"
+                                            variant={isAlreadyReadList ? "contained" : "outlined"}
+                                            onClick={isAlreadyReadList ? null : () => readLater(each)}
+                                            startIcon={isAlreadyReadList? <DoneAll /> : <AddCircleOutline />}
                                         >
-                                         Remove
-                                     </Button>
-                                ) : (
-                                    <Button
-                                        fullWidth
-                                        color="primary"
-                                        variant={isAlreadyReadList ? "contained" : "outlined"}
-                                        onClick={isAlreadyReadList ? null : () => readLater(each)}
-                                        startIcon={isAlreadyReadList? <DoneAll /> : <AddCircleOutline />}
-                                    >
-                                         {isAlreadyReadList ? 'Added' : 'Read Later'}
-                                     </Button>
+                                             {isAlreadyReadList ? 'Added' : 'Read Later'}
+                                         </Button>
+                                    )}
+                                    </Grid>
                                 )}
-                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
