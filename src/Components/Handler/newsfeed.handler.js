@@ -184,6 +184,7 @@ const NewsFeedHandler = ({
       <ArticleView
         article={get(stateUsers, 'allArticle.data.data.results', [])}
         readLater={handleReadLater}
+        readLaterList={get(stateUsers, 'readLaterData.data')}
       />
       {get(stateUsers, 'allArticle.data.data.results', null) && (
             <Pagination

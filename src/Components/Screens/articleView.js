@@ -1,14 +1,17 @@
 import { Grid, Paper, Button, Typography } from '@material-ui/core';
 import React from 'react';
-import { get } from 'lodash';
-import { Forward, AddCircleOutline,  } from '@material-ui/icons';
+import { get, find } from 'lodash';
+import { Forward, AddCircleOutline, DoneAll  } from '@material-ui/icons';
 
 const ArticleView = ({
     article=[],
-    readLater
+    readLater,
+    readLaterList
 }) => (
     <Grid container spacing={2}>
-        {article.map(each => (
+        {article.map(each => {
+            const isAlreadyReadList = find(readLaterList, e => get(e, 'title', '') === get(each, 'title', ''))
+            return (
         <Grid item xs={12}>
                 <Paper className="articlePaper w3-padding">
                     <Grid container>
@@ -42,14 +45,23 @@ const ArticleView = ({
                                 </a>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Button fullWidth variant="outlined" onClick={() => readLater(each)} startIcon={<AddCircleOutline />}> Read Later</Button>
+                                    <Button
+                                        fullWidth
+                                        color="primary"
+                                        variant={isAlreadyReadList ? "contained" : "outlined"}
+                                        onClick={isAlreadyReadList ? null : () => readLater(each)}
+                                        startIcon={isAlreadyReadList? <DoneAll /> : <AddCircleOutline />}
+                                        >
+                                            {isAlreadyReadList ? 'Added' : 'Read Later'}
+                                        </Button>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Paper>
          </Grid>
-        ))}
+        )
+        })}
     </Grid>
 );
 
