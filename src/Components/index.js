@@ -54,7 +54,6 @@ const MainPage = ({ eachRoute, props }) => {
       }
     }, [section]);
 
-
     const sectionMenu = get(state, 'allSections.data.data.results', []).map(each => {
       return {
         label: get(each, 'display_name'),

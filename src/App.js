@@ -16,7 +16,7 @@ function App() {
               path={eachRoute.url}
               exact
               render={props => {
-                if (get(eachRoute, 'url')==='/profileView') {
+                if (get(eachRoute, 'url')==='/profileView' || get(eachRoute, 'url')==='/readlater') {
                   return <eachRoute.component {...props} />
                 }
                 return <Drawer eachRoute={eachRoute} routeProps={props} />

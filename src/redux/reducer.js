@@ -4,7 +4,8 @@ import {
     FETCH_USERS,
     LOGIN_USERS,
     FETCH_ALL_SECTION_DATA,
-    FETCH_ALL_ARTICLE_DATA
+    FETCH_ALL_ARTICLE_DATA,
+    READ_LATER
 } from '../constants/storeConstant';
 import { get } from 'lodash';
 
@@ -55,11 +56,23 @@ const articleData = (state = {}, action) => {
     return state;
 }
 
+const readLaterData = (state = {}, action) => {
+    if (action.type === READ_LATER) {
+        const data = get(action, 'value');
+        if (data) {
+            return Object.assign({}, state, data);
+        }
+        return Object.assign({}, action.value);
+    }
+    return state;
+}
+
 const rootReducer = combineReducers({
     users,
     currentUser: login,
     allSections: sectionData,
     allArticle: articleData,
+    readLaterData,
 });
 
 export default rootReducer;

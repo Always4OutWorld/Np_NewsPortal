@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { get, find } from 'lodash';
 import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../constants/constant';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, loginUser, getNewsData } from '../../redux/action';
+import { registerUser, loginUser, getNewsData, addReadLaterSection } from '../../redux/action';
 import NewsFeed from '../Screens/newsfeed.view'; 
 import ArticleView from '../Screens/articleView';
 import Pagination from '../Common/pagination';
@@ -139,6 +139,20 @@ const NewsFeedHandler = ({
         setError('');
     }, [values, registerformik.values, isReg]);
 
+    console.log("datattaaa", stateUsers)
+
+    const handleReadLater = article => {
+        let newReadList = [];
+        if (get(stateUsers, 'readLaterData.data.length')) {
+            newReadList = get(stateUsers, 'readLaterData.data', []);
+        }
+        if (article) {
+            newReadList.push(article);
+        }
+        console.log("33333333", newReadList);
+        dispatch(addReadLaterSection(newReadList));
+    }   
+
   return (
     <>
       <NewsFeed
@@ -169,7 +183,7 @@ const NewsFeedHandler = ({
       />
       <ArticleView
         article={get(stateUsers, 'allArticle.data.data.results', [])}
-        readLater={() => {}}
+        readLater={handleReadLater}
       />
       {get(stateUsers, 'allArticle.data.data.results', null) && (
             <Pagination

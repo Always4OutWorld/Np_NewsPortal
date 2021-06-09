@@ -2,7 +2,8 @@ import {
     FETCH_USERS,
     LOGIN_USERS,
     FETCH_ALL_SECTION_DATA
-    ,FETCH_ALL_ARTICLE_DATA
+    ,FETCH_ALL_ARTICLE_DATA,
+    READ_LATER
 } from '../constants/storeConstant';
 import {
     axiosRequest,
@@ -43,6 +44,17 @@ const loginUser = (reqData) => async dispatch => {
     }
 }
 
+const addReadLaterSection = reqData => async dispatch => {
+    dispatchFinalData(READ_LATER, 'readlater', dispatch);
+    try {
+        dispatchFinalData(READ_LATER, 'readlater', dispatch, false, reqData);
+        return reqData
+    } catch (er) {
+        dispatchFinalData(READ_LATER, 'readlater', dispatch, false, null, er);
+        return er;
+    }
+}
+
 const getNewsData = (params = {}, type = 'all') => async dispatch => {
     dispatchFinalData(FETCH_ALL_ARTICLE_DATA, 'articledata', dispatch);
     try {
@@ -61,5 +73,6 @@ export {
     registerUser,
     loginUser,
     getAllSections,
-    getNewsData
+    getNewsData,
+    addReadLaterSection
 }

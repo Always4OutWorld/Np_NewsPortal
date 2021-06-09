@@ -42,7 +42,7 @@ const ArticleView = ({
                                 </a>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Button fullWidth variant="outlined" onClick={readLater} startIcon={<AddCircleOutline />}> Read Later</Button>
+                                    <Button fullWidth variant="outlined" onClick={() => readLater(each)} startIcon={<AddCircleOutline />}> Read Later</Button>
                                 </Grid>
                             </Grid>
                         </Grid>
