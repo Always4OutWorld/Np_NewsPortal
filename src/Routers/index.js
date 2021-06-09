@@ -1,6 +1,7 @@
 import Test from '../components/Screens/test';
 import NewsFeed from '../components/Handler/newsfeed.handler';
 import ProfileHandler from '../components/Handler/profileedit.handler';
+import ReadLaterHandler from '../components/Handler/readLater.handler';
 
 export const loggedInRoutes = [
     {
@@ -13,7 +14,7 @@ export const loggedInRoutes = [
     },
     {
         url: '/readlater',
-        component: Test,
+        component: ReadLaterHandler,
     },
 ];
 

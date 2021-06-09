@@ -13,7 +13,6 @@ const ArticleView = ({
                 <Paper className="articlePaper w3-padding">
                     <Grid container>
                         <Grid item xs={2}>
-                        <a rel="noreferrer" href={get(each, 'url')} target="_blank" >
                             <img
                                 className="imageA"
                                 alt=''
@@ -22,15 +21,14 @@ const ArticleView = ({
                                     e.target.src="https://summer.pes.edu/wp-content/uploads/2019/02/default-2.jpg"
                                 }}
                             />
-                        </a>
                         </Grid>
                         <Grid item xs={8}>
                             <Grid contianer>
-                                <a rel="noreferrer" href={get(each, 'url')} target="_blank" >
                                     <Grid item xs={12}>
-                                        <Typography variant="h6">{get(each, 'title')}</Typography>
+                                        <a rel="noreferrer" href={get(each, 'url')} target="_blank" >
+                                            <Typography variant="h6">{get(each, 'title')}</Typography>
+                                        </a>
                                     </Grid>
-                                </a>
                                 <Grid item xs={12}>
                                     <Typography variant="body2">{get(each, 'abstract')}</Typography>
                                 </Grid>

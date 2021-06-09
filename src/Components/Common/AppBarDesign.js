@@ -10,13 +10,16 @@ import {
   Avatar
 } from '@material-ui/core';
 import {
-    Menu as MenuIcon
+    Menu as MenuIcon,
+    ChromeReaderMode
 } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
+import { useHistory } from 'react-router';
 
 const MenuToolBar = ({ classes, setOpen, open, setModal }) => {
-  const currentUser = useSelector(state => get(state, 'currentUser.data'))
+  const currentUser = useSelector(state => get(state, 'currentUser.data'));
+  const history = useHistory();
   return (
     <Toolbar>
       <IconButton
@@ -32,23 +35,30 @@ const MenuToolBar = ({ classes, setOpen, open, setModal }) => {
       </IconButton>
       <Grid container>
           <Grid item xs={2}/>
-          <Grid item xs={8}>
+          <Grid item xs={7}>
             <Typography variant="h4" className="headStyle w3-center" noWrap>
               NYtimes Edition
             </Typography>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             {currentUser ? (
-              <a href="/profileView">
               <Grid container>
-                <Grid item xs={12}>
-                <Avatar className="w3-right" variant="square" style={{ backgroundColor: "red"}}>{get(currentUser, 'email').charAt(0)}</Avatar>
+                <Grid item xs={6}>
+                  <Button variant="contained" onClick={() => history.push('/readlater')} startIcon={<ChromeReaderMode />} size="small">Read Later</Button>
                 </Grid>
-                <Grid item xs={12}>
-                <Typography className="w3-right" variant="body2">{get(currentUser, 'email').split('@')[0]}</Typography>
+                <Grid item xs={6}>
+                  <a href="/profileView">
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Avatar className="w3-right" variant="square" style={{ backgroundColor: "red"}}>{get(currentUser, 'email').charAt(0)}</Avatar>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Typography className="w3-right" variant="body2">{get(currentUser, 'email').split('@')[0]}</Typography>
+                      </Grid>
+                    </Grid>
+                  </a>
                 </Grid>
               </Grid>
-              </a>
             ) : (
               <Button fullWidth size="large" color="secondary" variant="contained" onClick={() => setModal(true)}>Login</Button>
             )}
