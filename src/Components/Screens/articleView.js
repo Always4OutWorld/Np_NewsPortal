@@ -1,12 +1,14 @@
 import { Grid, Paper, Button, Typography } from '@material-ui/core';
 import React from 'react';
 import { get, find } from 'lodash';
-import { Forward, AddCircleOutline, DoneAll  } from '@material-ui/icons';
+import { Forward, AddCircleOutline, DoneAll, Delete  } from '@material-ui/icons';
 
 const ArticleView = ({
     article=[],
-    readLater,
-    readLaterList
+    readLater=()=>{},
+    readLaterList=[],
+    onClickRemove=()=>{},
+    readView = false
 }) => (
     <Grid container spacing={2}>
         {article.map(each => {
@@ -45,15 +47,27 @@ const ArticleView = ({
                                 </a>
                                 </Grid>
                                 <Grid item xs={12}>
+                                {readView ? (
+                                     <Button
+                                        fullWidth
+                                        color="primary"
+                                        variant="contained"
+                                        onClick={()  => onClickRemove(each)}
+                                        startIcon={<Delete />}
+                                        >
+                                         Remove
+                                     </Button>
+                                ) : (
                                     <Button
                                         fullWidth
                                         color="primary"
                                         variant={isAlreadyReadList ? "contained" : "outlined"}
                                         onClick={isAlreadyReadList ? null : () => readLater(each)}
                                         startIcon={isAlreadyReadList? <DoneAll /> : <AddCircleOutline />}
-                                        >
-                                            {isAlreadyReadList ? 'Added' : 'Read Later'}
-                                        </Button>
+                                    >
+                                         {isAlreadyReadList ? 'Added' : 'Read Later'}
+                                     </Button>
+                                )}
                                 </Grid>
                             </Grid>
                         </Grid>

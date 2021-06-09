@@ -54,7 +54,7 @@ const Pagination = ({
     prevAction=()=>{},
     onClickAction=()=>{}
 }) => {
-    const totalPages = total/perPage;
+    const totalPages = parseInt(total/perPage, 10);
 
     return (
        <Grid container className="w3-margin-top">
