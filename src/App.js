@@ -2,15 +2,20 @@ import './styles/App.css';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {loggedInRoutes, publicRoutes} from './routers/index';
 import Drawer from './components/index';
-import { get } from 'lodash';
-
-const auth = true;
+import { concat, get } from 'lodash';
+import { useSelector } from 'react-redux';
+import Test from './components/Screens/test';
 
 function App() {
+  const isAuth = useSelector(state => get(state, 'currentUser.data'));
+  let route = publicRoutes;
+  if (isAuth) {
+    route = concat(publicRoutes, loggedInRoutes);
+  }
   return (
     <BrowserRouter>
       <Switch>
-        {(auth ? loggedInRoutes : publicRoutes).map(eachRoute => (
+        {route.map(eachRoute => (
             <Route
               key={eachRoute.url}
               path={eachRoute.url}
@@ -23,6 +28,7 @@ function App() {
             }}
             />
         ))}
+        <Route component={Test} />
       </Switch>
     </BrowserRouter>
   );
