@@ -40,6 +40,7 @@ const MainPage = ({ eachRoute, props }) => {
     const theme = useTheme();
     const [open, setOpen] = useState(true);
     const [isModal, setModal] = useState(false);
+    const [section, setSection] = useState('all');
 
     useEffect(() => {
       if (!get(state, 'allSections.data')) {
@@ -47,11 +48,21 @@ const MainPage = ({ eachRoute, props }) => {
       }
     }, []);
 
+    useEffect(() => {
+      if (section && section !== 'all') {
+        dispatch(getNewsData({}, section));
+      }
+    }, [section]);
+
+
     const sectionMenu = get(state, 'allSections.data.data.results', []).map(each => {
       return {
         label: get(each, 'display_name'),
         name: get(each, 'section').replace(' ', '_'),
-        onClick: () => {},
+        section: get(each, 'section'),
+        onClick: (e) => {
+          setSection(get(e, 'section'));
+        },
         icons: sample(iconArray)
       };
     });

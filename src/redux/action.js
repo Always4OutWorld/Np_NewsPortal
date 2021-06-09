@@ -43,10 +43,10 @@ const loginUser = (reqData) => async dispatch => {
     }
 }
 
-const getNewsData = (params = {}) => async dispatch => {
+const getNewsData = (params = {}, type = 'all') => async dispatch => {
     dispatchFinalData(FETCH_ALL_ARTICLE_DATA, 'articledata', dispatch);
     try {
-        const data = await axiosRequest('/all/all.jso', params);
+        const data = await axiosRequest(`/all/${type}.jso`, params);
         dispatchFinalData(FETCH_ALL_ARTICLE_DATA, 'articledata', dispatch, false, data);
         return data;
     } catch (er) {

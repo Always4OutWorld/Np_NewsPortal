@@ -25,8 +25,6 @@ const NewsFeedHandler = ({
         setSetUser(state);
     }, [state]);
 
-    console.log("stateUsers", stateUsers)
-
     useEffect(() => {
         dispatch(getNewsData({
             page: selectedPage
