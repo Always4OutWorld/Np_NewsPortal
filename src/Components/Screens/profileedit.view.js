@@ -25,13 +25,13 @@ const ProfileView = ({
     signOut=()=>{}
 }) => (
    <Grid container className="w3-padding w3-padding-16" justify="center" spacing={3}>
-       <Grid item xs={8}>
+       <Grid item lg={5} md={6} sm={7} xs={12}>
             <Paper fullWidth className="paperstyle">
                 <Grid container className="w3-padding w3-padding-16" justify="center">
                 <Grid item xs={12}>
                     <a href="/" className="astyle">Back to Home</a>
                 </Grid>
-                    <Grid item xs={8}>
+                    <Grid item lg={8} md={8} sm={8} xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} className="avatar">
                                 <Avatar className="avatarColor">{firstLetter}</Avatar>

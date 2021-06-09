@@ -17,7 +17,7 @@ const ArticleView = ({
         <Grid item xs={12}>
                 <Paper className="articlePaper w3-padding">
                     <Grid container>
-                        <Grid item xs={2}>
+                        <Grid item lg={2} md={2} sm={2} xs={4}>
                             <img
                                 className="imageA"
                                 alt=''
@@ -27,7 +27,7 @@ const ArticleView = ({
                                 }}
                             />
                         </Grid>
-                        <Grid item xs={8}>
+                        <Grid item lg={8} md={8} sm={8} xs={12}>
                             <Grid contianer>
                                     <Grid item xs={12}>
                                         <a rel="noreferrer" href={get(each, 'url')} target="_blank" >
@@ -39,7 +39,7 @@ const ArticleView = ({
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item lg={2} md={2} sm={2} xs={12}>
                             <Grid container className="w3-right-align" spacing={3}>
                                 <Grid item xs={12}>
                                 <a rel="noreferrer" href={get(each, 'url')} target="_blank" >

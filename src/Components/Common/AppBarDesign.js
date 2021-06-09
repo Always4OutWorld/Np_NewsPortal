@@ -43,10 +43,10 @@ const MenuToolBar = ({ classes, setOpen, open, setModal }) => {
           <Grid item xs={3}>
             {currentUser ? (
               <Grid container>
-                <Grid item xs={6}>
+                <Grid item lg={6} md={6} sm={6} xs={12}>
                   <Button variant="contained" onClick={() => history.push('/readlater')} startIcon={<ChromeReaderMode />} size="small">Read Later</Button>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item lg={6} md={6} sm={6} xs={12}>
                   <a href="/profileView">
                     <Grid container>
                       <Grid item xs={12}>
