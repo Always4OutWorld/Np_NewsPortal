@@ -19,7 +19,7 @@ import DrawerDesign from './Common/drawerDesign';
 import {drawerWidth} from '../constants/constant';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllSections } from '../redux/action';
+import { getAllSections, getNewsData } from '../redux/action';
 import { get, sample } from 'lodash';
 
 const iconArray = [<AccountBalance/>, <AccountBalanceWallet />, <AcUnit />]

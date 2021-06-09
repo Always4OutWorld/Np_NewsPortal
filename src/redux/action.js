@@ -2,6 +2,7 @@ import {
     FETCH_USERS,
     LOGIN_USERS,
     FETCH_ALL_SECTION_DATA
+    ,FETCH_ALL_ARTICLE_DATA
 } from '../constants/storeConstant';
 import {
     axiosRequest,
@@ -42,8 +43,23 @@ const loginUser = (reqData) => async dispatch => {
     }
 }
 
+const getNewsData = (params = {}) => async dispatch => {
+    dispatchFinalData(FETCH_ALL_ARTICLE_DATA, 'articledata', dispatch);
+    try {
+        const data = await axiosRequest('/all/all.jso', params);
+        dispatchFinalData(FETCH_ALL_ARTICLE_DATA, 'articledata', dispatch, false, data);
+        return data;
+    } catch (er) {
+        dispatchFinalData(FETCH_ALL_ARTICLE_DATA, 'articledata', dispatch, false, null, er);
+        return er;
+    }
+}
+
+
+
 export {
     registerUser,
     loginUser,
-    getAllSections
+    getAllSections,
+    getNewsData
 }

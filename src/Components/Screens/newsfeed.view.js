@@ -27,7 +27,7 @@ const NewsFeed = ({
      {isModal && (
         <CommonDialog
           maxWidth="sm"
-          title={isReg ? "Registration with SunriseEdition" : "Login to SunriseEdition"}
+          title={isReg ? "Registration with NYtimes Edition" : "Login to NYtimes Edition"}
           open={isModal}
           onClose={() => {
             setModal(false);

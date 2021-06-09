@@ -40,8 +40,8 @@ export const axiosRequest = async (url = '', params = {}) => {
         method: 'get',
         url: `${process.env.REACT_APP_ENDPOINT}${url}`,
         params: {
+            'api-key': 'uR1j3A82i48Cvvn6A4pQRWBCIhUCIvG7',
             ...params,
-            'api-key': 'uR1j3A82i48Cvvn6A4pQRWBCIhUCIvG7'
         }
       };
     const data = await axios(options);

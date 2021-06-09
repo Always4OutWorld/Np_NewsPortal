@@ -3,23 +3,11 @@ import {
     FETCH_TEST,
     FETCH_USERS,
     LOGIN_USERS,
-    FETCH_ALL_SECTION_DATA
+    FETCH_ALL_SECTION_DATA,
+    FETCH_ALL_ARTICLE_DATA
 } from '../constants/storeConstant';
 import { get } from 'lodash';
 
-const testData = (state = {}, action) => {
-    if (action.type === FETCH_TEST) {
-        const data = get(action, 'value');
-        if (data) {
-            return Object.assign({}, state, {
-                ...action.value,
-                data,
-            })
-        }
-        return Object.assign({}, action.value);
-    }
-    return state;
-}
 const users = (state = {}, action) => {
     if (action.type === FETCH_USERS) {
         const data = get(action, 'value');
@@ -56,11 +44,22 @@ const sectionData = (state = {}, action) => {
     return state;
 }
 
+const articleData = (state = {}, action) => {
+    if (action.type === FETCH_ALL_ARTICLE_DATA) {
+        const data = get(action, 'value');
+        if (data) {
+            return Object.assign({}, state, data);
+        }
+        return Object.assign({}, action.value);
+    }
+    return state;
+}
+
 const rootReducer = combineReducers({
-    ping: testData,
     users,
     currentUser: login,
-    allSections: sectionData
+    allSections: sectionData,
+    allArticle: articleData,
 });
 
 export default rootReducer;

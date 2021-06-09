@@ -34,7 +34,7 @@ const MenuToolBar = ({ classes, setOpen, open, setModal }) => {
           <Grid item xs={2}/>
           <Grid item xs={8}>
             <Typography variant="h4" className="headStyle w3-center" noWrap>
-                Sunrise Edition
+              NYtimes Edition
             </Typography>
           </Grid>
           <Grid item xs={2}>

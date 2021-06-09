@@ -50,3 +50,13 @@
   color: blue;
   font-size: 10px;
 }
+
+.articlePaper {
+  min-height: 140px;
+  max-height: 150px;
+  overflow: auto;
+}
+
+.imageA {
+    height: 100%;
+}

@@ -4,18 +4,34 @@ import * as Yup from 'yup';
 import { get, find } from 'lodash';
 import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../constants/constant';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, loginUser } from '../../redux/action';
+import { registerUser, loginUser, getNewsData } from '../../redux/action';
 import NewsFeed from '../Screens/newsfeed.view'; 
+import ArticleView from '../Screens/articleView';
+import Pagination from '../Common/pagination';
 
 const NewsFeedHandler = ({
-    actionData
+    actionData,
 }) => {
     const dispatch = useDispatch();
-    const stateUsers = useSelector(state => state);
+    const state = useSelector(state => state);
     const { isModal, setModal } = actionData;
     const [newModal, setNewModal] = useState(false);
     const [isReg, setReg] = useState(false);
     const [errorTest, setError] = useState('');
+    const [selectedPage, setPage] = useState(1);
+    const [stateUsers , setSetUser] = useState(null);
+
+    useEffect(() => {
+        setSetUser(state);
+    }, [state]);
+
+    console.log("stateUsers", stateUsers)
+
+    useEffect(() => {
+        dispatch(getNewsData({
+            page: selectedPage
+        }))
+    }, [selectedPage]);
 
     useEffect(() => {
             setModal(newModal)
@@ -126,6 +142,7 @@ const NewsFeedHandler = ({
     }, [values, registerformik.values, isReg]);
 
   return (
+    <>
       <NewsFeed
         errorTest={errorTest}
         isModal={newModal}
@@ -150,7 +167,23 @@ const NewsFeedHandler = ({
         errors={errors}
         handleRegister={get(registerformik, 'handleSubmit')}
         handleSubmit={handleSubmit}
+        article={get(stateUsers, 'allArticle.data.data.results', [])}
       />
+      <ArticleView
+        article={get(stateUsers, 'allArticle.data.data.results', [])}
+        readLater={() => {}}
+      />
+      {get(stateUsers, 'allArticle.data.data.results', null) && (
+            <Pagination
+                selectedPage={selectedPage}
+                total={get(stateUsers, 'allArticle.data.data.num_results')}
+                perPage={20}
+                nextAction={()=> selectedPage < (get(stateUsers, 'allArticle.data.data.num_results')/20) ? setPage(selectedPage + 1) : null}
+                prevAction={()=> selectedPage > 1 ? setPage(selectedPage - 1) : null}
+                onClickAction={label => setPage(label)}
+            />
+      )}
+    </>
   )
 }
 
