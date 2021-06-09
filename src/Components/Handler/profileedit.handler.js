@@ -3,15 +3,17 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ProfileView from '../Screens/profileedit.view';
 import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../constants/constant';
-import { findIndex, get } from 'lodash';
+import { findIndex, get, remove } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loginUser,
   registerUser
 } from '../../redux/action';
+import { useHistory } from 'react-router';
 
 const ProfileHandler = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isEdit, setEdit] = useState(false);
   const [isForgot, setForgotPassword] = useState(false);
   const userDatas = useSelector(state => state);
@@ -90,6 +92,8 @@ const ProfileHandler = () => {
     handleReset
   } = editFormik;
 
+  console.log("userData", userDatas);
+
   useEffect(() => {
     if (!isEdit) {
       handleReset();
@@ -151,7 +155,22 @@ const ProfileHandler = () => {
       label: 'Confirm Password',
       type: 'password',
     }
-  ]
+  ];
+  const deleteAccount = () => {
+      if (get(userDatas, 'users.data.length') && get(userDatas, 'currentUser.data')) {
+        const users = get(userDatas, 'users.data');
+        remove(get(userDatas, 'users.data'), e => e.email === get(userDatas, 'currentUser.data.email'));
+        dispatch(registerUser(users));
+        dispatch(loginUser(null));
+        history.push('/');
+      }
+  }
+  const signOut = () => {
+      if (get(userDatas, 'currentUser.data')) {
+        dispatch(loginUser(null));
+        history.push('/');
+      }
+  }
   return (
       <ProfileView
         editField={editField}
@@ -163,6 +182,8 @@ const ProfileHandler = () => {
         isForgot={isForgot}
         passwordSubmit={passwordFormik.handleSubmit}
         EditSubmit={handleSubmit}
+        deleteAccount={deleteAccount}
+        signOut={signOut}
       />
   );
 }

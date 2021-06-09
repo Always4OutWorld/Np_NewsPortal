@@ -20,7 +20,9 @@ const ProfileView = ({
     isForgot,
     forgotPassword,
     EditSubmit,
-    passwordSubmit
+    passwordSubmit,
+    deleteAccount=()=>{},
+    signOut=()=>{}
 }) => (
    <Grid container className="w3-padding w3-padding-16" justify="center" spacing={3}>
        <Grid item xs={8}>
@@ -76,6 +78,13 @@ const ProfileView = ({
                                     {isForgot && <Button size="small" onClick={passwordSubmit} className="w3-margin-left" variant="contained" color="primary">Submit</Button>}
                                 </Grid>
                             )}
+                            <Grid item xs={12} style={{ borderBottom: "1px solid" }} />
+                            <Grid item xs={12} className="w3-margin-top">
+                                <Button fullWidth variant="outlined" color="primary" onClick={signOut}>Sign Out</Button>
+                            </Grid>
+                            <Grid item xs={12} className="w3-margin-bottom">
+                            <Button fullWidth variant="contained" onClick={deleteAccount} style={{ background: 'red', color: 'white' }} >Delete Account</Button>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
