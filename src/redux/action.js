@@ -4,11 +4,11 @@ import {
     FETCH_ALL_SECTION_DATA
     ,FETCH_ALL_ARTICLE_DATA,
     READ_LATER
-} from '../constants/storeConstant';
+} from '../Constants/storeConstant';
 import {
     axiosRequest,
     dispatchFinalData
-} from '../components/Utils/index';
+} from '../Components/Utils/index';
 
 const getAllSections = (reqData, params) => async dispatch => {
     dispatchFinalData(FETCH_ALL_SECTION_DATA, 'sectionData', dispatch);

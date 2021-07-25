@@ -1,7 +1,7 @@
 import { Button, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { get } from 'lodash';
-import CommonDialog from '../Common/commonDialog';
+import CommonDialog from '../Common/CommonDialog';
 import { TextInputField } from '../Utils/index';
 
 const NewsFeed = ({

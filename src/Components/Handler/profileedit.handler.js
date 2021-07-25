@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import ProfileView from '../Screens/profileedit.view';
-import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../constants/constant';
+import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../Constants/constant';
 import { findIndex, get, remove } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import {

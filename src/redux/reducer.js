@@ -6,7 +6,7 @@ import {
     FETCH_ALL_SECTION_DATA,
     FETCH_ALL_ARTICLE_DATA,
     READ_LATER
-} from '../constants/storeConstant';
+} from '../Constants/storeConstant';
 import { get } from 'lodash';
 
 const users = (state = {}, action) => {

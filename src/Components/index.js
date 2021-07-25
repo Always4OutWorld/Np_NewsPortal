@@ -13,10 +13,10 @@ import {
   AccountBalanceWallet,
   AcUnit,
 } from '@material-ui/icons';
-import ScrollTop from './Common/scrollTop';
-import AppBarDesign from './Common/appBarDesign';
-import DrawerDesign from './Common/drawerDesign';
-import {drawerWidth} from '../constants/constant';
+import ScrollTop from './Common/ScrollTop';
+import AppBarDesign from './Common/AppBarDesign';
+import DrawerDesign from './Common/DrawerDesign';
+import {drawerWidth} from '../Constants/constant';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSections, getNewsData } from '../redux/action';
@@ -44,12 +44,14 @@ const MainPage = ({ eachRoute, props }) => {
 
     useEffect(() => {
       if (!get(state, 'allSections.data')) {
-        dispatch(getAllSections());
+        if (!get(eachRoute, 'url')==='/covid') {
+          dispatch(getAllSections());
+        }
       }
     }, []);
 
     useEffect(() => {
-      if (section && section !== 'all') {
+      if (section && section !== 'all' && !get(eachRoute, 'url')==='/covid') {
         dispatch(getNewsData({}, section));
       }
     }, [section]);
@@ -68,20 +70,24 @@ const MainPage = ({ eachRoute, props }) => {
 
     return (
       <div className={classes.root}>
-        <AppBarDesign
-          classes={classes}
-          open={open}
-          setOpen={setOpen}
-          setModal={setModal}
-        />
-        <DrawerDesign
-          classes={classes}
-          setOpen={setOpen}
-          open={open}
-          theme={theme}
-          section={section}
-          sectionData={sectionMenu}
-        />
+        {eachRoute && eachRoute.isNews && (
+          <AppBarDesign
+            classes={classes}
+            open={open}
+            setOpen={setOpen}
+            setModal={setModal}
+          />
+        )}
+        {eachRoute && eachRoute.isNews && (
+          <DrawerDesign
+            classes={classes}
+            setOpen={setOpen}
+            open={open}
+            theme={theme}
+            section={section}
+            sectionData={sectionMenu}
+         />
+        )}
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Container>

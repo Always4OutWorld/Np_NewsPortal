@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { get, find } from 'lodash';
-import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../constants/constant';
+import { REQUIRED_ERROR, INVALID_EMAIL, REGREX, SPECIAL_CHAR_ERROR } from '../../Constants/constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser, loginUser, getNewsData, addReadLaterSection } from '../../redux/action';
 import NewsFeed from '../Screens/newsfeed.view'; 

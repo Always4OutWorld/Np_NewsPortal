@@ -1,10 +1,11 @@
-import './styles/App.css';
+import './Styles/App.css';
+import 'react-clock/dist/Clock.css';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {loggedInRoutes, publicRoutes} from './routers/index';
-import Drawer from './components/index';
+import {loggedInRoutes, publicRoutes} from './Routers/index';
+import Drawer from './Components/index';
 import { concat, get } from 'lodash';
 import { useSelector } from 'react-redux';
-import Test from './components/Screens/test';
+import Test from './Components/Screens/test';
 
 function App() {
   const isAuth = useSelector(state => get(state, 'currentUser.data'));
