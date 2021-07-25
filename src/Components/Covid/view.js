@@ -33,10 +33,7 @@ const cardDesign = (responseD) => {
                     <Card>
                         <Grid container>
                             <Grid item xs={12}>
-                                <Typography>{get(ele, 'pincode', '')}</Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography>{get(ele, 'name', '')}</Typography>
+                                <Typography>{`${get(ele, 'pincode', '')} - ${get(ele, 'name')}`}</Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <Typography>{`${get(ele, 'address', '')}`}</Typography>
@@ -151,7 +148,8 @@ const CovFeedView = ({
     onStateChange,
     setD,
     currentD,
-    responseD
+    responseD,
+    selectedD
 }) => (
         <Grid container justify="center" style={{
             top: "40%",
@@ -272,7 +270,7 @@ const CovFeedView = ({
                         </Grid>
                     )}
                     <Grid item xs={12} className="w3-margin-top">
-                        {cardDesign(responseD)}
+                        {cardDesign(selectedD)}
                     </Grid>
                 </Grid>
             </Grid>

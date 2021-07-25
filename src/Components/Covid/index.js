@@ -1,11 +1,13 @@
-import { get } from 'lodash';
+import { filter, find, findIndex, get } from 'lodash';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import CovFeedView from './view';
-import { centres, districtList } from './data';
+import { districtList } from './data';
+import axios from 'axios';
 
 
 const Regrex = `^[1-9][0-9]{5}$`;
+const api = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=20&date=25-07-2021";
 
 
 const CovFeed = () => {
@@ -13,7 +15,7 @@ const CovFeed = () => {
     const [value, setValue] = useState(new Date());
     const [pincode, insertPincode] = useState([
       {
-        pincode: 691306
+        pincode: 792120
       }
     ]);
     const [currentPin, setPin] = useState('');
@@ -24,7 +26,14 @@ const CovFeed = () => {
     const districts = districtList.find(e => get(e, 'id') === state);
     const [districtArray, setDistrict] = useState(get(districts, 'data.districts'));
     const [currentD, setD] = useState(298);
- 
+    const [centres, setC] = useState([]);
+    const [selectedD, setSC] = useState([]);
+
+    useEffect(() => {
+      const value = filter(centres, e => findIndex(pincode, ele => ele.pincode === e.pincode) > -1);
+      setSC(value);
+    }, [centres]);
+
     useEffect(() => {
       const interval = setInterval(
         () => setValue(new Date()),
@@ -36,6 +45,14 @@ const CovFeed = () => {
         setLoad(false);
       }, [2000]);
       }
+
+      const timeO = setTimeout(async () => {
+        await axios.get(api).then(res => {
+          setC(get(res, 'data.centers'));
+        }).catch(er => {
+          console.log('response fetch error');
+        });
+      }, 5000);
    
       if (get(pincode, 'length') === 0) {
         setEdit(true);
@@ -43,6 +60,7 @@ const CovFeed = () => {
 
       return () => {
         clearInterval(interval);
+        clearTimeout(timeO);
       }
     }, []);
 
@@ -82,7 +100,6 @@ const CovFeed = () => {
       setD(get(districts, 'data.districts[0].district_id'));
     }
 
-    console.log("centres", centres)
     return <CovFeedView
         isloading={isloading}
         value={value}
@@ -106,7 +123,8 @@ const CovFeed = () => {
         districtList={districtArray}
         currentD={currentD}
         setD={setD}
-        responseD={centres.data}
+        responseD={centres}
+        selectedD={selectedD}
     />
 }
 
