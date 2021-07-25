@@ -149,7 +149,8 @@ const CovFeedView = ({
     setD,
     currentD,
     responseD,
-    selectedD
+    selectedD,
+    isAvailable
 }) => (
         <Grid container justify="center" style={{
             top: "40%",
@@ -181,7 +182,7 @@ const CovFeedView = ({
                                 <Grid item style={alignCSS}>
                                     {get(pincode, 'length') > 0 && pincode.map((each, id) => {
                                         return (
-                                            <Chip onDelete={() => onDelete(each.pincode)} key={id} id={id} style={{fontSize: "25px"}} size="large" label={get(each, 'pincode')} color="primary" />
+                                            <Chip onDelete={() => isEdit ? !onDelete(each.pincode) : null} key={id} id={id} style={{fontSize: "25px"}} size="large" label={get(each, 'pincode')} color="primary" />
                                         );
                                     })}
                                 </Grid>
@@ -191,7 +192,7 @@ const CovFeedView = ({
                             <Grid container>
                                 {isEdit && (
                                     <Grid item xs={12} className="w3-padding">
-                                        <FormControl variant="outlined" fullWidth disabled={get(pincode, 'length') > 0}>
+                                        <FormControl variant="outlined" fullWidth disabled>
                                             <InputLabel >State</InputLabel>
                                             <Select
                                             value={state}
@@ -205,7 +206,7 @@ const CovFeedView = ({
                                 )}
                                 {isEdit && (
                                     <Grid item xs={12} className="w3-padding">
-                                         <FormControl variant="outlined" fullWidth disabled={get(pincode, 'length') > 0}>
+                                         <FormControl variant="outlined" fullWidth disabled>
                                             <InputLabel >District</InputLabel>
                                             <Select
                                             value={currentD}
@@ -262,9 +263,9 @@ const CovFeedView = ({
                         </Grid>
                     </Grid>
                     <Grid item xs={12} className="w3-center">
-                        {isalaram ? <CheckCircle style={{ color: 'green', fontSize: '80px'}} /> : <Error style={{ color: 'red', fontSize: "80px" }} />}
+                        {isAvailable ? <CheckCircle style={{ color: 'green', fontSize: '80px'}} /> : <Error style={{ color: 'red', fontSize: "80px" }} />}
                     </Grid>
-                    {!isalaram && (
+                    {!isAvailable && (
                         <Grid item xs={12} className="w3-center">
                             No slot
                         </Grid>
